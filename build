@@ -1,0 +1,43 @@
+#!/usr/bin/env node
+
+if (process.argv.length < 3){
+  console.log("\n# Give me some args or sumfink! For example:")
+  console.log("  $ ./build javascript")
+  console.log("  $ ./build ruby yaml bash")
+  console.log("  $ ./build lolphp\n")
+  process.exit();
+}
+
+var fs = require('fs')
+  , core = false
+  , langsDone = false
+  , langs = ''
+
+fs.readFile('src/hilite.js', function (err, file){
+  if (err)
+    throw err
+  core = file.toString()
+  finish()
+})
+
+process.argv.slice(2).forEach(function (language, index, arr){
+  fs.readFile('src/languages/' + language + '.js', function (err, file){
+    if (err)
+      throw err
+    langs += file.toString()
+    if (index == arr.length - 1){
+      langsDone = true
+      finish()
+    }
+  })
+})
+
+function finish (){
+  if (!core || !langsDone)
+    return
+  fs.writeFile('hilite.js', core + langs, function (){
+    console.log('# hilite.js built!')
+    console.log("# I recommend you `$ uglify hilite.js`")
+    process.exit()
+  })
+}

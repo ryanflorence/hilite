@@ -1,0 +1,130 @@
+pre {
+  line-height: 1.1;
+  overflow: auto;
+  border: solid 1px;
+  font-size: 85%;
+  background: #FDF6E3;
+  color: #586E75;
+}
+
+pre ol {
+  padding-top: 0.5em;
+  padding-bottom: 1.25em;
+  margin: 0;
+}
+
+pre code {
+  display: block;
+  padding-top: 0.5em;
+  padding-bottom: 0;
+}
+
+pre.lines ol {
+  float: left;
+}
+
+pre.lines ol {
+  margin: 0;
+  background: #EBE6D8;
+  border-right: solid 1px #D7D3C6;
+  margin-right: 0.5em;
+  color: #93A1A1;
+}
+
+pre.lines li {
+  width: 0;
+}
+
+.comment {
+  color: #93A1A1;
+}
+
+.string {
+  color: #2AA198;
+}
+
+.string.regexp {
+  color: #D30102;
+}
+
+.constant.numeric {
+  color: #D33682;
+}
+
+.variable.language,
+.variable.other {
+  color: #268BD2;
+}
+
+.keyword {
+  color: #859900;
+}
+
+.storage {
+  color: #073642;
+  font-weight: bold;
+}
+
+.entity.name.class,
+.entity.name.type.class {
+  color: #268BD2;
+}
+
+.entity.name.function {
+  color: #268BD2;
+}
+
+.punctuation.definition.variable {
+  color: #859900;
+}
+
+.punctuation.section.embedded.begin,
+.punctuation.section.embedded.end {
+  color: #D30102;
+}
+
+.constant.language,
+.meta.preprocessor {
+  color: #B58900;
+}
+
+.support.function.construct,
+.keyword.other.new {
+  color: #D30102;
+}
+
+.constant.character,
+.constant.other {
+  color: #CB4B16;
+}
+
+.entity.name.tag {
+  color: #268BD2;
+  font-weight: bold;
+}
+
+.punctuation.definition.tag.begin,
+.punctuation.definition.tag.end {
+  color: #93A1A1;
+}
+
+.entity.other.attribute-name {
+  color: #93A1A1;
+}
+
+.support.function {
+  color: #268BD2;
+}
+
+.punctuation.separator.continuation {
+  color: #D30102;
+}
+
+.support.type,
+.support.class {
+  color: #859900;
+}
+
+.support.type.exception {
+  color: #CB4B16;
+}

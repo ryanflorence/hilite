@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv=Content-type content="text/html; charset=utf-8">
+  <title>index.html</title>
+  <link rel="stylesheet" href="../themes/solarized_light.css" type="text/css" media="screen" charset="utf-8">
+  <style>
+  body { margin: 0px}
+  pre {margin: 0; border: 0}
+  </style>
+</head>
+<body>
+
+<pre class=solarized_light><code id=demo data-language=javascript>!function (){
+  var languages = {}
+
+  function hilite (node, language, lines){
+    if (!language)
+      language = node.getAttribute('data-language')
+
+    var text = hilite.convert(node.childNodes[0].nodeValue, language)
+      , parent = node.parentNode
+
+    if (lines || parent.tagName.toLowerCase() === 'pre'){
+      lines = makeLines(text)
+      parent.insertBefore(lines, node)
+      parent.className = parent.className + ' lines'
+      text += '&lt;br style=&quot;clear:both&quot;&gt;'
+    }
+
+    node.innerHTML = text
+  }
+
+  function makeLines (text){
+    var lines = text.split("\n")
+      , list = document.createElement('ol')
+      , html = ''
+
+    for (var i = 1, l = lines.length; i < l; i++)
+      html += '&lt;li&gt;&lt;/li&gt;'
+
+    list.innerHTML = html
+
+    return list
+  }
+
+  hilite.convert = function (text, language){
+    var syntaxes = languages[language]
+      , map = {}
+
+    function applySyntax (i){
+      // applies a syntax to the string and mutates the string to a mess
+      // of ids so that they won't be matched with subsequent rules
+      var match  = syntaxes[i].match
+        , name   = syntaxes[i].name
+        , single = typeof name === 'string'
+
+      return text.replace(match, function (){
+        var matches  = [].slice.call(arguments, 0)
+          , full     = matches.shift()
+          , id
+
+        if (single){
+          id = guid()
+          map[id] = { match: full, name: name }
+          return id
+        }
+
+        // map the matched syntax and change the text to ids
+        for (var i = 0, l = name.length; i < l; i++){
+          id = guid()
+          map[id] = { match: matches[i], name: name[i] }
+          full = full.replace(matches[i], id)
+        }
+
+        // full is now a mess of ids
+        return full
+      })
+    }
+
+    // apply each syntax rule to the text, converting matches to IDs
+    for (var i = 0, l = syntaxes.length; i < l; i++)
+      text = applySyntax(i)
+
+    // switch IDs back to normal stuff
+    for (i in map)
+      if (map.hasOwnProperty(i))
+        text = text.replace(i, '&lt;span class=&quot;&#x27;+map[i].name+&#x27;&quot;&gt;&#x27;+escape(map[i].match || &#x27;&#x27;)+&#x27;&lt;/span&gt;&#x27;)
+
+    return text
+  }
+
+  function slug () {
+     return (((1+Math.random())*0x10000)|0).toString(16).substring(1)
+  }
+
+  function guid () {
+     return ("\u00ab" + slug() + slug() + slug() + slug() + "\u00bb")
+  }
+
+  hilite.define = function (language, definition){
+    languages[language] = definition
+  }
+
+  // expose
+  this.hilite = hilite
+  if (typeof module !== 'undefined')
+    module.exports = hilite
+}()
+</code></pre>
+
+<script src="../src/hilite.js"></script>
+<script src="../src/languages/javascript.js"></script>
+<script src="demo.js"></script>
+<!--script src="../hijs.js"></script-->
+</body>
+</html>
