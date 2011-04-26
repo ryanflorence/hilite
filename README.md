@@ -3,11 +3,13 @@ Hilite.js
 
 This is still under development and the API unset, but feel free to join in.
 
-Goal
+Goals
 -----
 
 - Be tiny, fast, and accurate, therefore no language detection and stuff.
 - Work client or server side
+- Extend popular libraries with it (MooTools, jQuery, dojo)
+- Extend not-so-popular libraries with it ([snack](http://snackjs.com), ender)
 
 Features
 --------
